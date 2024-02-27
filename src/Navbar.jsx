@@ -12,8 +12,18 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Favour from "@mui/icons-material/Favorite";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import MoreIcon from "@mui/icons-material/MoreVert";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import OrdersIcon from "@mui/icons-material/Receipt";
+import CoinIcon from "@mui/icons-material/LocalAtm";
+import SettingsIcon from "@mui/icons-material/Settings";
+import VouchersIcon from "@mui/icons-material/CardGiftcard";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -26,11 +36,14 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("xs")]: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(8),
     width: "17ch",
   },
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(40),
+  },
   [theme.breakpoints.up("md")]: {
-    marginLeft: theme.spacing(95),
+    marginLeft: theme.spacing(90),
     width: "auto",
   },
 }));
@@ -61,6 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -81,6 +95,40 @@ export default function Appbar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setDrawerOpen(open);
+  };
+  const items = [
+    { label: "Orders", icon: <OrdersIcon /> },
+    { label: "Vouchers", icon: <VouchersIcon /> },
+    { label: "Coins", icon: <CoinIcon /> },
+    { label: "Settings", icon: <SettingsIcon /> },
+  ];
+  const list = (
+    <div
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List sx={{marginTop:10}}>
+        {items.map((item, index) => (
+          <ListItem button key={index}>
+            <ListItemAvatar>{item.icon}</ListItemAvatar>
+            <ListItemText primary={item.label} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+    </div>
+  );
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -128,7 +176,7 @@ export default function Appbar() {
           color="inherit"
         >
           <Badge badgeContent={11} color="error">
-            <Favour />
+            <AddShoppingCartIcon/>
           </Badge>
         </IconButton>
         <p>Favourites</p>
@@ -150,14 +198,15 @@ export default function Appbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "" }}>
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 1 }}
+            onClick={toggleDrawer(true)}
+            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
@@ -166,10 +215,15 @@ export default function Appbar() {
             noWrap
             component="div"
             fontFamily={"sans-serif"}
-            sx={{ display: { xs: "flex", sm: "flex" }, }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
           >
             AK-KART
           </Typography>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -179,15 +233,15 @@ export default function Appbar() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Box sx={{ flexGrow: 1, }} />
-          <Box sx={{ display: { xs: "none", md: "flex", sm: "flex" },}}>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: "none", md: "flex", sm: "flex" } }}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
               <Badge badgeContent={11} color="error">
-                <Favour />
+                <AddShoppingCartIcon/>
               </Badge>
             </IconButton>
             <IconButton
@@ -216,6 +270,9 @@ export default function Appbar() {
           </Box>
         </Toolbar>
       </AppBar>
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+        {list}
+      </Drawer>
       {renderMobileMenu}
       {renderMenu}
     </Box>
