@@ -165,7 +165,7 @@ export default function Appbar() {
             variant="h6"
             noWrap
             component="div"
-            fontFamily={"cursive"}
+            fontFamily={"sans-serif"}
             sx={{ display: { xs: "flex", sm: "flex" }, }}
           >
             AK-KART
