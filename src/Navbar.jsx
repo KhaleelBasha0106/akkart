@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -24,6 +24,8 @@ import OrdersIcon from "@mui/icons-material/Receipt";
 import CoinIcon from "@mui/icons-material/LocalAtm";
 import SettingsIcon from "@mui/icons-material/Settings";
 import VouchersIcon from "@mui/icons-material/CardGiftcard";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,6 +77,14 @@ export default function Appbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+ 
+  const products = useSelector((state) => state.mycartRedu.myCart);
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/addcart");
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -118,7 +128,7 @@ export default function Appbar() {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List sx={{marginTop:10}}>
+      <List sx={{ marginTop: 10 }}>
         {items.map((item, index) => (
           <ListItem button key={index}>
             <ListItemAvatar>{item.icon}</ListItemAvatar>
@@ -175,11 +185,11 @@ export default function Appbar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={11} color="error">
-            <AddShoppingCartIcon/>
+          <Badge badgeContent={products.length} color="error" sx={{ alignItems: "center" }}>
+            <AddShoppingCartIcon onClick={handleClick} />
           </Badge>
         </IconButton>
-        <p>Favourites</p>
+        <Typography>My cart</Typography>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -240,8 +250,8 @@ export default function Appbar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={11} color="error">
-                <AddShoppingCartIcon/>
+              <Badge badgeContent={products.length} color="error">
+                <AddShoppingCartIcon onClick={handleClick} />
               </Badge>
             </IconButton>
             <IconButton
