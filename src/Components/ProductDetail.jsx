@@ -5,7 +5,10 @@ import { memo } from "react";
 import ProductNotFound from "./ProductNotFound";
 import { Typography, Grid, Card, CardMedia, Button, Box } from "@mui/material";
 import axios from "axios";
-import { removeSelectedProduct, selectedProduct } from "../Actions/ProductActions";
+import {
+  removeSelectedProduct,
+  selectedProduct,
+} from "../Actions/ProductActions";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -25,7 +28,7 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(removeSelectedProduct())
+    dispatch(removeSelectedProduct());
     if (productId) fetchProduct();
   }, [productId]);
 
