@@ -6,6 +6,7 @@ import ProductNotFound from "./ProductNotFound";
 import { Typography, Grid, Card, CardMedia, Button, Box } from "@mui/material";
 import axios from "axios";
 import {
+  addtoCart,
   removeSelectedProduct,
   selectedProduct,
 } from "../Actions/ProductActions";
@@ -13,7 +14,6 @@ import {
 const ProductDetail = () => {
   const { productId } = useParams();
   const product = useSelector((state) => state.selectedProd.products);
-
   const dispatch = useDispatch();
 
   const fetchProduct = async () => {
@@ -60,7 +60,7 @@ const ProductDetail = () => {
             BUY
           </Button>
           &nbsp;
-          <Button variant="contained">ADD TO CART</Button>
+          <Button variant="contained" onClick={()=> dispatch(addtoCart(product))}>ADD TO CART</Button>
         </Box>
       </Grid>
     </Grid>

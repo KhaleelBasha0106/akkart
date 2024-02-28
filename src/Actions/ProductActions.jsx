@@ -19,3 +19,10 @@ export const removeSelectedProduct = () => {
     type: types.REMOVE_SELECTED_PRODUCTED,
   };
 };
+
+export const addtoCart = (product) => {
+  return {
+    type: types.ADD_TO_CART,
+    payload: product,
+  };
+};

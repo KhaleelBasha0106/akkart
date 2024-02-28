@@ -2,6 +2,7 @@ import { types } from "../ActionTypes/ProductActionTypes";
 
 const initialState = {
   products: [],
+  myCart: [],
 };
 
 export function setProductReducer(state = initialState, { type, payload }) {
@@ -10,6 +11,18 @@ export function setProductReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         products: payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export function mycartReducer(state = initialState, { type, payload }) {
+  switch (type) {
+    case types.ADD_TO_CART:
+      return {
+        ...state,
+        myCart: [...state.myCart, payload],
       };
     default:
       return state;
