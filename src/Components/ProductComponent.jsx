@@ -140,7 +140,7 @@ const ProductComponent = () => {
               </Typography>
             </CardContent>
           </Link>
-          <CardActions sx={{ marginTop: "auto" }}>
+          <CardActions sx={{ marginTop: "auto",justifyContent:"space-between" }}>
             <Button size="small" onClick={() => toggleDescriptionExpansion(id)}>
               {isExpanded ? "Show Less" : "Show More"}
             </Button>
