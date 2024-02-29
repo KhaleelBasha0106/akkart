@@ -7,11 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
@@ -26,6 +27,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import VouchersIcon from "@mui/icons-material/CardGiftcard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -38,14 +40,14 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("xs")]: {
-    marginLeft: theme.spacing(8),
+    marginLeft: theme.spacing(6),
     width: "17ch",
   },
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(40),
+    marginLeft: theme.spacing(30),
   },
   [theme.breakpoints.up("md")]: {
-    marginLeft: theme.spacing(90),
+    marginLeft: theme.spacing(80),
     width: "auto",
   },
 }));
@@ -197,7 +199,13 @@ export default function Appbar() {
         </IconButton>
         <Typography>My cart</Typography>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          navigate("/login");
+        }}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -205,9 +213,26 @@ export default function Appbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <LoginIcon />
         </IconButton>
-        <p>Profile</p>
+        <p>Log In</p>
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          navigate("/register");
+        }}
+      >
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <PersonAddIcon />
+        </IconButton>
+        <p>Sign Up</p>
       </MenuItem>
     </Menu>
   );
@@ -250,7 +275,18 @@ export default function Appbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
+
           <Box sx={{ display: { xs: "none", md: "flex", sm: "flex" } }}>
+            <Button sx={{ color: "white" }} onClick={() => navigate("/login")}>
+              Log In
+            </Button>
+            <Button
+              sx={{ color: "white" }}
+              onClick={() => navigate("/register")}
+            >
+              Sign Up
+            </Button>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -259,17 +295,6 @@ export default function Appbar() {
               <Badge badgeContent={products.length} color="error">
                 <AddShoppingCartIcon onClick={handleClick} />
               </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none", sm: "none" } }}>
