@@ -23,11 +23,13 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import OrdersIcon from "@mui/icons-material/Receipt";
 import CoinIcon from "@mui/icons-material/LocalAtm";
+import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
 import VouchersIcon from "@mui/icons-material/CardGiftcard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
+import Home from "@mui/icons-material/Home";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -119,10 +121,41 @@ export default function Appbar() {
     setDrawerOpen(open);
   };
   const items = [
-    { label: "Orders", icon: <OrdersIcon /> },
-    { label: "Vouchers", icon: <VouchersIcon /> },
-    { label: "Coins", icon: <CoinIcon /> },
-    { label: "Settings", icon: <SettingsIcon /> },
+    {
+      label: "Home",
+      icon: <HomeIcon />,
+      method: () => {
+        navigate("/");
+      },
+    },
+    {
+      label: "Orders",
+      icon: <OrdersIcon />,
+      method: () => {
+        navigate("/orders");
+      },
+    },
+    {
+      label: "Vouchers",
+      icon: <VouchersIcon />,
+      method: () => {
+        navigate("/vouchers");
+      },
+    },
+    {
+      label: "Coins",
+      icon: <CoinIcon />,
+      method: () => {
+        navigate("/coins");
+      },
+    },
+    {
+      label: "Settings",
+      icon: <SettingsIcon />,
+      method: () => {
+        navigate("/settings");
+      },
+    },
   ];
   const list = (
     <div
@@ -132,7 +165,7 @@ export default function Appbar() {
     >
       <List sx={{ marginTop: 10 }}>
         {items.map((item, index) => (
-          <ListItem button key={index}>
+          <ListItem button key={index} onClick={item.method}>
             <ListItemAvatar>{item.icon}</ListItemAvatar>
             <ListItemText primary={item.label} />
           </ListItem>
