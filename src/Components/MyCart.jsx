@@ -63,11 +63,7 @@ const MyCart = () => {
             <Button size="small" onClick={() => toggleDescriptionExpansion(id)}>
               {isExpanded ? "Show Less" : "Show More"}
             </Button>
-            <Button
-              size="small"
-              variant="contained"
-              color="error"
-            >
+            <Button size="small" variant="contained" color="error">
               BUY
             </Button>
           </CardActions>
@@ -77,9 +73,25 @@ const MyCart = () => {
   });
 
   return (
-    <Box sx={{marginTop:10}}>
+    <Box sx={{ marginTop: 10 }}>
       <Grid container spacing={3}>
-        {renderList}
+        {products.length ? (
+          renderList
+        ) : (
+          <Typography
+            variant="h5"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "80vh",
+              color: 'text.secondary',
+            }}
+          >
+            No items found
+          </Typography>
+        )}
       </Grid>
     </Box>
   );

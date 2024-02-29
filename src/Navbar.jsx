@@ -41,9 +41,9 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(8),
     width: "17ch",
   },
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(40),
-  },
+  // [theme.breakpoints.up("sm")]: {
+  //   marginLeft: theme.spacing(40),
+  // },
   [theme.breakpoints.up("md")]: {
     marginLeft: theme.spacing(90),
     width: "auto",
@@ -77,7 +77,7 @@ export default function Appbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
- 
+
   const products = useSelector((state) => state.mycartRedu.myCart);
 
   const navigate = useNavigate();
@@ -154,12 +154,9 @@ export default function Appbar() {
         vertical: "top",
         horizontal: "right",
       }}
-      open={isMenuOpen}
+      open={false}
       onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
+    ></Menu>
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -179,19 +176,28 @@ export default function Appbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleClick();
+          handleMenuClose();
+        }}
+      >
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={products.length} color="error" sx={{ alignItems: "center" }}>
-            <AddShoppingCartIcon onClick={handleClick} />
+          <Badge
+            badgeContent={products.length}
+            color="error"
+            sx={{ alignItems: "center" }}
+          >
+            <AddShoppingCartIcon />
           </Badge>
         </IconButton>
         <Typography>My cart</Typography>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleMenuClose}>
         <IconButton
           size="large"
           aria-label="account of current user"
