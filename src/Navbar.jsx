@@ -42,7 +42,7 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("xs")]: {
-    marginLeft: theme.spacing(6),
+    marginLeft: theme.spacing(5),
     width: "17ch",
   },
   [theme.breakpoints.up("sm")]: {

@@ -46,6 +46,7 @@ const ProductComponent = () => {
               image={image}
               title={title}
               sx={{ objectFit: "cover" }}
+              loading="lazy"
             />
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h5" component="div">
@@ -65,7 +66,11 @@ const ProductComponent = () => {
             <Button size="small" onClick={() => toggleDescriptionExpansion(id)}>
               {isExpanded ? "Show Less" : "Show More"}
             </Button>
-            <Button size="small" variant="outlined" onClick={() => dispatch(addtoCart(product))}>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => dispatch(addtoCart(product))}
+            >
               Add to Cart
             </Button>
           </CardActions>
